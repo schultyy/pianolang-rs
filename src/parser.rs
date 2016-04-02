@@ -33,13 +33,13 @@ fn convert_to_node(token: &lexer::Token) -> AstNode {
 pub fn parse_program(program: &str) -> AstNode {
     let tokens = lexer::create_tokens(program).unwrap();
     let op = operator_from_token(&tokens[1].value);
-    let leftOp = convert_to_node(&tokens[2]);
-    let rightOp = convert_to_node(&tokens[3]);
+    let left_op= convert_to_node(&tokens[2]);
+    let right_op = convert_to_node(&tokens[3]);
 
     AstNode {
         node_type: op,
-        left: Some(Box::new(leftOp)),
-        right: Some(Box::new(rightOp)),
+        left: Some(Box::new(left_op)),
+        right: Some(Box::new(right_op)),
         value: tokens[1].value.clone()
     }
 }

@@ -22,6 +22,9 @@ impl Emitter {
         else if op == "-" {
             self.instructions.push("SUB".into());
         }
+        else if op == "*" {
+            self.instructions.push("MUL".into());
+        }
     }
 
     pub fn instructions(&self) -> Vec<String> {
@@ -89,5 +92,17 @@ mod tests {
         assert_eq!("PUSH 1", program[0]);
         assert_eq!("PUSH 2", program[1]);
         assert_eq!("SUB", program[2]);
+    }
+
+    #[test]
+    fn traverse_multiplication() {
+        let ast = parser::parse_program("(* 1 2)").unwrap();
+        let mut traverser = Traverser::new();
+        traverser.traverse(ast);
+        let program = traverser.instructions();
+
+        assert_eq!("PUSH 1", program[0]);
+        assert_eq!("PUSH 2", program[1]);
+        assert_eq!("MUL", program[2]);
     }
 }

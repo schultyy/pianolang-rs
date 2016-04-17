@@ -6,6 +6,7 @@ pub enum AstType {
     Number,
     Addition,
     Subtraction,
+    Multiplication,
     Value
 }
 
@@ -19,6 +20,7 @@ pub struct AstNode {
 fn operator_from_token(op: &str) -> AstType {
     match op {
         "+" => AstType::Addition,
+        "*" => AstType::Multiplication,
         _ => AstType::Subtraction
     }
 }
@@ -91,5 +93,11 @@ mod tests {
     fn ast_has_subtraction_type() {
         let ast = parse_program(subtraction());
         assert_eq!(ast.node_type, AstType::Subtraction);
+    }
+
+    #[test]
+    fn ast_has_multiply_type() {
+        let ast = parse_program("(* 5 4)");
+        assert_eq!(ast.node_type, AstType::Multiplication);
     }
 }

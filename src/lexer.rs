@@ -22,6 +22,7 @@ pub fn create_tokens(program: &str) -> Result<Vec<Token>, String> {
             '(' => tokens.push(Token{token_type: TokenType::LParen, value: "(".into()}),
             ')' => tokens.push(Token{token_type: TokenType::RParen, value: ")".into()}),
             '+' => tokens.push(Token{token_type: TokenType::Operator, value: "+".into()}),
+            '-' => tokens.push(Token{token_type: TokenType::Operator, value: "-".into()}),
             _ => {
                 if ch.is_digit(10) {
                     // let mut s = String::from_utf8_lossy(ch);

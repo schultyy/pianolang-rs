@@ -5,6 +5,7 @@ use lexer;
 pub enum AstType {
     Number,
     Addition,
+    Subtraction,
     Value
 }
 
@@ -17,7 +18,8 @@ pub struct AstNode {
 
 fn operator_from_token(op: &str) -> AstType {
     match op {
-        _ => AstType::Addition,
+        "+" => AstType::Addition,
+        _ => AstType::Subtraction
     }
 }
 
@@ -50,6 +52,11 @@ mod tests {
     fn addition() -> &'static str {
         "(+ 1 2)"
     }
+
+    fn subtraction() -> &'static str {
+        "(- 5 2)"
+    }
+
     #[test]
     fn ast_has_addition_type() {
         let ast = parse_program(addition());
@@ -78,5 +85,11 @@ mod tests {
     fn ast_right_node_is_number() {
         let ast = parse_program(addition());
         assert_eq!(ast.right.unwrap().value, "2");
+    }
+
+    #[test]
+    fn ast_has_subtraction_type() {
+        let ast = parse_program(subtraction());
+        assert_eq!(ast.node_type, AstType::Subtraction);
     }
 }

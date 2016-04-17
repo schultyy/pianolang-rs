@@ -7,6 +7,7 @@ pub enum AstType {
     Addition,
     Subtraction,
     Multiplication,
+    Division,
     Value
 }
 
@@ -21,6 +22,7 @@ fn operator_from_token(op: &str) -> AstType {
     match op {
         "+" => AstType::Addition,
         "*" => AstType::Multiplication,
+        "/" => AstType::Division,
         _ => AstType::Subtraction
     }
 }
@@ -99,5 +101,11 @@ mod tests {
     fn ast_has_multiply_type() {
         let ast = parse_program("(* 5 4)");
         assert_eq!(ast.node_type, AstType::Multiplication);
+    }
+
+    #[test]
+    fn ast_has_division_type() {
+        let ast = parse_program("(/ 16 4)");
+        assert_eq!(ast.node_type, AstType::Division);
     }
 }
